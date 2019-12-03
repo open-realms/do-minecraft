@@ -9,7 +9,7 @@ A library used to create and manage minecraft servers on DigitalOcean droplets.
 - [x] Get TypeScript set up
 - [x] Add jest for testing
 - [ ] Add `digitalocean-js` to the project
-- [ ] Get environment variable support working for digitalocean tokens (`.env`)
+- [x] Get environment variable support working for digitalocean tokens (`.env`)
 - [ ] Single build command to transpile and package library
 
 **Functionality**
