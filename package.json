@@ -9,7 +9,8 @@
     "email": "johnwoodruff91@gmail.com"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p tsconfig.json"
   },
   "license": "MIT",
   "devDependencies": {
