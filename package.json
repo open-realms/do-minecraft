@@ -2,7 +2,7 @@
   "name": "do-minecraft",
   "version": "0.1.0",
   "description": "A library for interacting with Minecraft on DigitalOcean servers",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "git@github.com:johnbwoodruff/do-minecraft.git",
   "author": {
     "name": "John Woodruff",
@@ -22,6 +22,7 @@
     "cpy-cli": "^3.0.0",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
     "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
