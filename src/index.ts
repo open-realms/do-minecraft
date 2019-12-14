@@ -2,4 +2,4 @@
 import './config';
 
 // Services
-export * from './services/sum.service';
+export * from './services/minecraft.service';

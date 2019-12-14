@@ -10,16 +10,21 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc -p tsconfig.json"
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run build:ts && npm run build:copy-scripts",
+    "build:ts": "tsc -p tsconfig.json",
+    "build:copy-scripts": "cpy ./src/scripts/* ./dist/scripts"
   },
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.14",
+    "cpy-cli": "^3.0.0",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.7.2"
   },
   "dependencies": {
