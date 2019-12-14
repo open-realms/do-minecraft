@@ -8,14 +8,14 @@ A library used to create and manage minecraft servers on DigitalOcean droplets.
 
 - [x] Get TypeScript set up
 - [x] Add jest for testing
-- [ ] Add `digitalocean-js` to the project
+- [x] Add `digitalocean-js` to the project
 - [x] Get environment variable support working for digitalocean tokens (`.env`)
 - [x] Single build command to transpile and package library
 
 **Functionality**
 
-- [ ] Create Droplet with Minecraft
-  - [ ] IF NEW: Minecraft build script included
+- [x] Create Droplet with Minecraft
+  - [x] IF NEW: Minecraft build script included
   - [ ] IF EXISTING: Use existing snapshot to spin up server
   - [ ] Include optionally provided ssh key for easy server access
 - [ ] Check droplet status
