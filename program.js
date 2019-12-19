@@ -4,7 +4,10 @@ const { MinecraftService } = require('./dist');
 const service = new MinecraftService();
 
 // hardcode the correct id here when testing the various methods below
-const id = 172162308;
+const id = 172171119;
+
+// phony id to use to test error handling of the various methods below
+const idOfDropletThatDoesNotExist = 2;
 
 const options = {
   name: 'minecraft-server',
@@ -24,11 +27,11 @@ service
   });
 
 // service.stopMinecraftServer(id).catch(err => {
-//   console.log(JSON.stringify(err));
+//   console.log(err);
 // });
 
 // service.startMinecraftServer(id).catch(err => {
-//   console.log(JSON.stringify(err));
+//   console.log(err);
 // });
 
 // service.killMinecraftServer(id).catch(err => {
