@@ -1,10 +1,11 @@
 import { DigitalOcean, DropletRequest, Droplet, Action } from 'digitalocean-js';
-import { readFile, read } from 'fs';
+import { readFile } from 'fs';
 import { resolve } from 'path';
 import { promisify } from 'util';
 
 import { MinecraftServerConfig } from './interfaces/minecraft-server-config';
 import { env } from '../config';
+import { ResourceNotFound } from './exceptions/resource-not-found';
 
 const asyncReadFile = promisify(readFile);
 
@@ -36,17 +37,33 @@ export class MinecraftService {
   }
 
   public async stopMinecraftServer(id: number): Promise<Action> {
-    const action = this.client.dropletActions.powerOffDroplet(id);
+    let action: Action;
+    try {
+      action = await this.client.dropletActions.powerOffDroplet(id);
+    } catch (err) {
+      if (err.response.status === 404) {
+        throw new ResourceNotFound(err.message);
+      }
+      throw new Error(err.message);
+    }
     return action;
   }
 
   public async startMinecraftServer(id: number): Promise<Action> {
-    const action = this.client.dropletActions.powerOnDroplet(id);
+    let action: Action;
+    try {
+      action = await this.client.dropletActions.powerOnDroplet(id);
+    } catch (err) {
+      if (err.response.status === 404) {
+        throw new ResourceNotFound(err.message);
+      }
+      throw new Error(err.message);
+    }
     return action;
   }
 
   public async killMinecraftServer(id: number): Promise<void> {
-    const droplet = this.client.droplets.deleteDroplet(id);
+    const droplet = this.client.droplets.deleteDroplet(id).catch(err => {});
   }
 
   private async getScript(key: string): Promise<string> {
