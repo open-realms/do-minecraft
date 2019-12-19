@@ -1,12 +1,11 @@
 import { DigitalOcean, DropletRequest, Droplet, Action } from 'digitalocean-js';
-import { readFile, read, access } from 'fs';
+import { readFile } from 'fs';
 import { resolve } from 'path';
 import { promisify } from 'util';
 
 import { MinecraftServerConfig } from './interfaces/minecraft-server-config';
 import { env } from '../config';
-import { ResourceNotFound } from './interfaces/resource-not-found';
-import { ActionService } from 'digitalocean-js/build/main/lib/services/actions-service';
+import { ResourceNotFound } from './exceptions/resource-not-found';
 
 const asyncReadFile = promisify(readFile);
 
