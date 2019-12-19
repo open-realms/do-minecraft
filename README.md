@@ -22,8 +22,9 @@ A library used to create and manage minecraft servers on DigitalOcean droplets.
 - [ ] Start Minecraft remotely
 - [ ] Stop Minecraft remotely
 - [ ] Restart Minecraft remotely
-- [ ] Shut down droplet (after stopping minecraft)
+- [x] Start droplet
+- [x] Shut down droplet (after stopping minecraft)
 - [ ] Take snapshot of droplet
-- [ ] Destroy droplet
+- [x] Destroy droplet
 
 There is likely more functionality I forgot, so we'll add that later.

@@ -1,4 +1,4 @@
-import { DigitalOcean, DropletRequest, Droplet } from 'digitalocean-js';
+import { DigitalOcean, DropletRequest, Droplet, Action } from 'digitalocean-js';
 import { readFile, read } from 'fs';
 import { resolve } from 'path';
 import { promisify } from 'util';
@@ -33,6 +33,20 @@ export class MinecraftService {
     const droplet = await this.client.droplets.createNewDroplet(request);
 
     return droplet;
+  }
+
+  public async stopMinecraftServer(id: number): Promise<Action> {
+    const action = this.client.dropletActions.powerOffDroplet(id);
+    return action;
+  }
+
+  public async startMinecraftServer(id: number): Promise<Action> {
+    const action = this.client.dropletActions.powerOnDroplet(id);
+    return action;
+  }
+
+  public async killMinecraftServer(id: number): Promise<void> {
+    const droplet = this.client.droplets.deleteDroplet(id);
   }
 
   private async getScript(key: string): Promise<string> {
