@@ -3,6 +3,9 @@ const { MinecraftService } = require('./dist');
 
 const service = new MinecraftService();
 
+// hardcode the correct id here when testing the various methods below
+const id = 172162308;
+
 const options = {
   name: 'minecraft-server',
   version: '1.15.0',
@@ -19,3 +22,15 @@ service
   .catch(err => {
     console.log(JSON.stringify(err));
   });
+
+// service.stopMinecraftServer(id).catch(err => {
+//   console.log(JSON.stringify(err));
+// });
+
+// service.startMinecraftServer(id).catch(err => {
+//   console.log(JSON.stringify(err));
+// });
+
+// service.killMinecraftServer(id).catch(err => {
+//   console.log(JSON.stringify(err));
+// });
