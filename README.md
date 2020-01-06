@@ -2,15 +2,9 @@
 
 A library used to create and manage minecraft servers on DigitalOcean droplets.
 
-## Roadmap
+This is a work in progress.
 
-**Project Setup**
-
-- [x] Get TypeScript set up
-- [x] Add jest for testing
-- [x] Add `digitalocean-js` to the project
-- [x] Get environment variable support working for digitalocean tokens (`.env`)
-- [x] Single build command to transpile and package library
+## Todo
 
 **Functionality**
 
@@ -26,5 +20,3 @@ A library used to create and manage minecraft servers on DigitalOcean droplets.
 - [x] Shut down droplet (after stopping minecraft)
 - [ ] Take snapshot of droplet
 - [x] Destroy droplet
-
-There is likely more functionality I forgot, so we'll add that later.
