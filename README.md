@@ -19,8 +19,8 @@ A library used to create and manage minecraft servers on DigitalOcean droplets.
   - [ ] IF EXISTING: Use existing snapshot to spin up server
   - [ ] Include optionally provided ssh key for easy server access
 - [ ] Check droplet status
-- [ ] Start Minecraft remotely
-- [ ] Stop Minecraft remotely
+- [x] Start Minecraft remotely
+- [x] Stop Minecraft remotely
 - [ ] Restart Minecraft remotely
 - [x] Start droplet
 - [x] Shut down droplet (after stopping minecraft)

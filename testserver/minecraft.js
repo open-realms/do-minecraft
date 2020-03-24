@@ -1,7 +1,12 @@
 // Require Node.js standard library function to spawn a child process
-var spawn = require('child_process').spawn;
-var minecraftServerProcess;
+const spawn = require('child_process').spawn;
+let minecraftServerProcess;
+
 var isMinecraftRunning = false;
+const MINECRAFT_STATUS = {
+  RUNNING: 'RUNNING',
+  NOT_RUNNING: 'NOT_RUNNING'
+};
 
 // Express.js app listening for HTTP requests
 
@@ -39,8 +44,8 @@ function startMinecraft() {
   // Create a child process for the Minecraft server using the same java process
   // invocation we used manually before
   minecraftServerProcess = spawn('java', [
-    '-Xmx512M',
-    '-Xms256M',
+    '-Xmx1024M',
+    '-Xms1024M',
     '-jar',
     'server.jar',
     'nogui'
@@ -60,9 +65,8 @@ function shutdownMinecraft() {
 }
 
 function getMinecraftStatus() {
-  status = 'Minecraft is not currently running';
   if (isMinecraftRunning) {
-    status = 'Minecraft is currently running';
+    return MINECRAFT_STATUS.RUNNING;
   }
-  return status;
+  return MINECRAFT_STATUS.NOT_RUNNING;
 }
