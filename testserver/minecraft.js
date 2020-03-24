@@ -2,17 +2,17 @@
 const spawn = require('child_process').spawn;
 let minecraftServerProcess;
 
-var isMinecraftRunning = false;
 const MINECRAFT_STATUS = {
   RUNNING: 'RUNNING',
   NOT_RUNNING: 'NOT_RUNNING'
 };
+let serverStatus = MINECRAFT_STATUS.NOT_RUNNING;
 
 // Express.js app listening for HTTP requests
 
-var express = require('express');
-var app = express();
-var port = 3000;
+const express = require('express');
+const app = express();
+const port = 3000;
 
 app.get('/', (req, res) => res.send('MinecraftExpressApp is up and running!'));
 
@@ -23,19 +23,17 @@ app.get('/status', (req, res) => {
 });
 
 app.post('/start', (req, res) => {
-  if (!isMinecraftRunning) {
+  if (serverStatus == MINECRAFT_STATUS.NOT_RUNNING) {
     startMinecraft();
-    isMinecraftRunning = true;
   }
-  res.send({ start: true });
+  res.send({ status: MINECRAFT_STATUS.RUNNING });
 });
 
 app.delete('/shutdown', (req, res) => {
-  if (isMinecraftRunning) {
+  if (serverStatus == MINECRAFT_STATUS.RUNNING) {
     shutdownMinecraft();
-    isMinecraftRunning = false;
   }
-  res.send({ shutdown: true });
+  res.send({ status: MINECRAFT_STATUS.NOT_RUNNING });
 });
 
 app.listen(port, () => console.log('Example app listening on port ${port}!'));
@@ -58,15 +56,14 @@ function startMinecraft() {
   }
   minecraftServerProcess.stdout.on('data', log);
   minecraftServerProcess.stderr.on('data', log);
+  serverStatus = MINECRAFT_STATUS.RUNNING;
 }
 
 function shutdownMinecraft() {
   minecraftServerProcess.kill();
+  serverStatus = MINECRAFT_STATUS.NOT_RUNNING;
 }
 
 function getMinecraftStatus() {
-  if (isMinecraftRunning) {
-    return MINECRAFT_STATUS.RUNNING;
-  }
-  return MINECRAFT_STATUS.NOT_RUNNING;
+  return serverStatus;
 }
