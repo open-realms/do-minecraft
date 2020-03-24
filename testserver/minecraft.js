@@ -39,8 +39,8 @@ function startMinecraft() {
   // Create a child process for the Minecraft server using the same java process
   // invocation we used manually before
   minecraftServerProcess = spawn('java', [
-    '-Xmx512M',
-    '-Xms256M',
+    '-Xmx1024M',
+    '-Xms1024M',
     '-jar',
     'server.jar',
     'nogui'
