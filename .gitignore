@@ -64,3 +64,14 @@ typings/
 dist
 
 .DS_Store
+
+# Minecraft server-specific files
+testserver/world
+whitelist.json
+usercache.json
+server.properties
+banned-ips.json
+banned-players.json
+eula.txt
+ops.json
+server.jar

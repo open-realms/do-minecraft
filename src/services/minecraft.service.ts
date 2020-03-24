@@ -66,6 +66,10 @@ export class MinecraftService {
     const droplet = this.client.droplets.deleteDroplet(id).catch(err => {});
   }
 
+  public async startMinecraftRemotely(id: number): Promise<void> {}
+
+  public async stopMinecraftRemotely(id: number): Promise<void> {}
+
   private async getScript(key: string): Promise<string> {
     const path = resolve(__dirname, `../scripts/${key}.sh`);
     const script = await asyncReadFile(path, 'utf8');
