@@ -12,6 +12,7 @@ let serverStatus = MINECRAFT_STATUS.NOT_RUNNING;
 
 const express = require('express');
 const app = express();
+app.use(express.json());
 const port = 3000;
 
 app.get('/', (req, res) => res.send('MinecraftExpressApp is up and running!'));
@@ -42,8 +43,8 @@ app.delete('/shutdown', (req, res) => {
 });
 
 app.post('/command', (req, res) => {
-  const command = req.param('Body');
-  minecraftServerProcess.stdin.write(command + '\n');
+  const command = req.body;
+  minecraftServerProcess.stdin.write(command.command + '\n');
 
   let buffer = [];
   let collector = data => {
