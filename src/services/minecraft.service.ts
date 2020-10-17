@@ -63,7 +63,11 @@ export class MinecraftService {
   }
 
   public async killMinecraftServer(id: number): Promise<void> {
-    const droplet = this.client.droplets.deleteDroplet(id).catch(err => {});
+    try {
+      await this.client.droplets.deleteDroplet(id);
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 
   public async startMinecraftRemotely(id: number): Promise<void> {}
