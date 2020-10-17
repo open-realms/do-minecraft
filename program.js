@@ -18,7 +18,7 @@ const options = {
 };
 
 // service
-//   .createMinecraftServer(options)
+//   .createDroplet(options)
 //   .then(droplet => {
 //     console.log(JSON.stringify(droplet));
 //   })
@@ -26,14 +26,14 @@ const options = {
 //     console.log(JSON.stringify(err));
 //   });
 
-// service.stopMinecraftServer(id).catch(err => {
+// service.stopDroplet(id).catch(err => {
 //   console.log(err);
 // });
 
-// service.startMinecraftServer(id).catch(err => {
+// service.startDroplet(id).catch(err => {
 //   console.log(err);
 // });
 
-service.killMinecraftServer(id).catch(err => {
+service.killDroplet(id).catch(err => {
   console.log(JSON.stringify(err));
 });
