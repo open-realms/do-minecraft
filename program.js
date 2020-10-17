@@ -4,14 +4,14 @@ const { MinecraftService } = require('./dist');
 const service = new MinecraftService();
 
 // hardcode the correct id here when testing the various methods below
-const id = 174200734;
+const id = 212567519;
 
 // phony id to use to test error handling of the various methods below
 const idOfDropletThatDoesNotExist = 2;
 
 const options = {
   name: 'minecraft-server',
-  version: '1.15.0',
+  version: '1.16.1',
   size: 's-1vcpu-1gb',
   region: 'nyc3',
   flavor: 'vanilla'

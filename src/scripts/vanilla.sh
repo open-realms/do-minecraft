@@ -2,7 +2,7 @@
 
 set -e
 
-VANILLA_VERSION="1.15"
+VANILLA_VERSION="<<<VERSION>>>"
 
 MANIFEST="https://launchermeta.mojang.com/mc/game/version_manifest.json"
 URL=$(python3 -c "

@@ -19,7 +19,7 @@ export class MinecraftService {
   public async createMinecraftServer(
     config: MinecraftServerConfig
   ): Promise<Droplet> {
-    const userData = await this.getScript(config.flavor);
+    const userData = await this.getScript(config.flavor, config.version);
     const request: DropletRequest = {
       name: config.name,
       region: config.region,
@@ -70,9 +70,10 @@ export class MinecraftService {
 
   public async stopMinecraftRemotely(id: number): Promise<void> {}
 
-  private async getScript(key: string): Promise<string> {
-    const path = resolve(__dirname, `../scripts/${key}.sh`);
-    const script = await asyncReadFile(path, 'utf8');
+  private async getScript(flavor: string, version: string): Promise<string> {
+    const path = resolve(__dirname, `../scripts/${flavor}.sh`);
+    let script = await asyncReadFile(path, 'utf8');
+    script = script.replace('<<<VERSION>>>', version);
     return script;
   }
 }
