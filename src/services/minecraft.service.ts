@@ -16,7 +16,9 @@ export class MinecraftService {
     this.client = new DigitalOcean(env.apiKey);
   }
 
-  public async createDroplet(config: MinecraftServerConfig): Promise<Droplet> {
+  public async createMinecraftDroplet(
+    config: MinecraftServerConfig
+  ): Promise<Droplet> {
     const userData = await this.getScript(config.flavor, config.version);
     const request: DropletRequest = {
       name: config.name,
@@ -34,7 +36,7 @@ export class MinecraftService {
     return droplet;
   }
 
-  public async stopDroplet(id: number): Promise<Action> {
+  public async stopMinecraftDroplet(id: number): Promise<Action> {
     let action: Action;
     try {
       action = await this.client.dropletActions.powerOffDroplet(id);
@@ -47,7 +49,7 @@ export class MinecraftService {
     return action;
   }
 
-  public async startDroplet(id: number): Promise<Action> {
+  public async startMinecraftDroplet(id: number): Promise<Action> {
     let action: Action;
     try {
       action = await this.client.dropletActions.powerOnDroplet(id);
@@ -60,7 +62,7 @@ export class MinecraftService {
     return action;
   }
 
-  public async killDroplet(id: number): Promise<void> {
+  public async killMinecraftDroplet(id: number): Promise<void> {
     try {
       await this.client.droplets.deleteDroplet(id);
     } catch (err) {

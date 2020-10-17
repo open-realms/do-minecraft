@@ -18,7 +18,7 @@ const options = {
 };
 
 // service
-//   .createDroplet(options)
+//   .createMinecraftDroplet(options)
 //   .then(droplet => {
 //     console.log(JSON.stringify(droplet));
 //   })
@@ -26,14 +26,14 @@ const options = {
 //     console.log(JSON.stringify(err));
 //   });
 
-// service.stopDroplet(id).catch(err => {
+// service.stopMinecraftDroplet(id).catch(err => {
 //   console.log(err);
 // });
 
-// service.startDroplet(id).catch(err => {
+// service.startMinecraftDroplet(id).catch(err => {
 //   console.log(err);
 // });
 
-service.killDroplet(id).catch(err => {
+service.killMinecraftDroplet(id).catch(err => {
   console.log(JSON.stringify(err));
 });
