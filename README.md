@@ -15,7 +15,6 @@ This is a work in progress.
 - [ ] Check droplet status
 - [x] Start Minecraft remotely
 - [x] Stop Minecraft remotely
-- [ ] Restart Minecraft remotely
 - [x] Start droplet
 - [x] Shut down droplet (after stopping minecraft)
 - [ ] Take snapshot of droplet
