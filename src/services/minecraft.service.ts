@@ -75,9 +75,19 @@ export class MinecraftService {
   public async stopMinecraftRemotely(id: number): Promise<void> {}
 
   private async getScript(flavor: string, version: string): Promise<string> {
-    const path = resolve(__dirname, `../scripts/${flavor}.sh`);
-    let script = await asyncReadFile(path, 'utf8');
-    script = script.replace('<<<VERSION>>>', version);
-    return script;
+    // GET HEAD, FLAVOR, AND TAIL PATHS
+    const headPath = resolve(__dirname, `../scripts/head.sh`);
+    const tailPath = resolve(__dirname, `../scripts/tail.sh`);
+    const flavorPath = resolve(__dirname, `../scripts/${flavor}.sh`);
+    // READ SCRIPT FILES
+    let headScript = await asyncReadFile(headPath, 'utf8');
+    const tailScript = await asyncReadFile(tailPath, 'utf8');
+    let flavorScript = await asyncReadFile(flavorPath, 'utf8');
+    // REPLACE VARIABLES
+    // TODO: Update password to be not password :P
+    headScript = headScript.replace('<<<PASSWORD>>>', 'password');
+    flavorScript = flavorScript.replace('<<<VERSION>>>', version);
+    // RETURN FULL SCRIPT
+    return headScript + flavorScript + tailScript;
   }
 }
