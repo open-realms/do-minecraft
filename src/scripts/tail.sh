@@ -4,3 +4,5 @@
 pm2 start /home/mcuser/express-minecraft/minecraft.js
 pm2 startup
 pm2 save
+
+EOF

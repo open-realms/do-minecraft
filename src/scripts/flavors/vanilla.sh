@@ -12,7 +12,7 @@ url=[index['url'] for index in manifest['versions'] if index['id']==version][0]
 stdout.write(str(load(urlopen(url))['downloads']['server']['url']))
 ")
 
-rm -rf /home/mcuser/express-minecraft/minecraft_server-run.jar
-wget -O /home/mcuser/express-minecraft/minecraft_server-run.jar "$URL"
-echo "eula=true" > /home/mcuser/express-minecraft/eula.txt
-echo "enable-query=true" > /home/mcuser/express-minecraft/server.properties
+rm -rf /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar
+wget -O /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar "$URL"
+echo "eula=true" > /home/mcuser/express-minecraft/minecraft/eula.txt
+echo "enable-query=true" > /home/mcuser/express-minecraft/minecraft/server.properties
