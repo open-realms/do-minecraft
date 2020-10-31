@@ -93,7 +93,8 @@ export class MinecraftService {
   }
 
   public async stopMinecraftRemotely(id: number): Promise<void> {
-    const full_address = this.getDropletIP(id) + ':3000/shutdown';
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/shutdown`;
     Axios.delete(full_address);
   }
 
