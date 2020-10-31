@@ -79,7 +79,8 @@ export class MinecraftService {
   }
 
   public async sendMinecraftCommand(id: number, command: string): Promise<void> {
-    const full_address = this.getDropletIP(id) + ':3000/command';
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/command`;
     Axios.post(full_address, {
       command: command
     });
