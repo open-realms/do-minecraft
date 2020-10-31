@@ -72,7 +72,8 @@ export class MinecraftService {
   }
 
   public async getMinecraftServerStatus(id: number): Promise<string> {
-    const full_address = this.getDropletIP(id) + ':3000/status';
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/status`;
     const response = await Axios.get(full_address);
     return response.data.status;
   }
