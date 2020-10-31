@@ -4,7 +4,7 @@ const { MinecraftService } = require('./dist');
 const service = new MinecraftService();
 
 // hardcode the correct id here when testing the various methods below
-const id = 214710939;
+// const id = 214710939;
 
 // phony id to use to test error handling of the various methods below
 const idOfDropletThatDoesNotExist = 2;
