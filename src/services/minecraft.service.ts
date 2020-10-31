@@ -6,6 +6,7 @@ import { promisify } from 'util';
 import { MinecraftServerConfig } from './interfaces/minecraft-server-config';
 import { env } from '../config';
 import { ResourceNotFound } from './exceptions/resource-not-found';
+import Axios from 'axios';
 
 const asyncReadFile = promisify(readFile);
 
@@ -70,9 +71,44 @@ export class MinecraftService {
     }
   }
 
-  public async startMinecraftRemotely(id: number): Promise<void> {}
+  public async getMinecraftServerStatus(id: number): Promise<string> {
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/status`;
+    const response = await Axios.get(full_address);
+    return response.data.status;
+  }
 
-  public async stopMinecraftRemotely(id: number): Promise<void> {}
+  public async sendMinecraftCommand(id: number, command: string): Promise<void> {
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/command`;
+    Axios.post(full_address, {
+      command: command
+    });
+  }
+
+  public async startMinecraftRemotely(id: number): Promise<void> {
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/start`;
+    Axios.post(full_address);
+  }
+
+  public async stopMinecraftRemotely(id: number): Promise<void> {
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/shutdown`;
+    Axios.delete(full_address);
+  }
+
+  public async restartMinecraftRemotely(id: number): Promise<void> {
+    const ip = await this.getDropletIP(id);
+    const full_address = `${ip}:3000/restart`;
+    Axios.post(full_address);
+  }
+
+  private async getDropletIP(id: number): Promise<string> {
+    const droplet = await this.client.droplets.getExistingDroplet(id);
+    const ipv4 = droplet.networks?.v4.find(n => n.type === 'public');
+    return ipv4!.ip_address;
+  }
 
   private async getScript(flavor: string, version: string): Promise<string> {
     // GET HEAD, FLAVOR, AND TAIL PATHS
