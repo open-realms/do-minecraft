@@ -8,7 +8,7 @@ import { env } from '../config';
 import { ResourceNotFound } from './exceptions/resource-not-found';
 import Axios from 'axios';
 
-import { getServerUrl } from './utils/vanilla'
+import { Vanilla } from './utils/vanilla';
 
 const asyncReadFile = promisify(readFile);
 
@@ -80,7 +80,10 @@ export class MinecraftService {
     return response.data.status;
   }
 
-  public async sendMinecraftCommand(id: number, command: string): Promise<void> {
+  public async sendMinecraftCommand(
+    id: number,
+    command: string
+  ): Promise<void> {
     const ip = await this.getDropletIP(id);
     const full_address = `${ip}:3000/command`;
     Axios.post(full_address, {
@@ -115,13 +118,28 @@ export class MinecraftService {
   private async getScript(flavor: string, version: string): Promise<string> {
     // GET SCRIPT PATH
     const scriptPath = resolve(__dirname, `../scripts/setup.sh`);
+
     // READ SCRIPT FILE
     let script = await asyncReadFile(scriptPath, 'utf8');
+
+    // FETCH URL BASED ON FLAVOR
+    let url = '';
+    if (flavor == 'vanilla') {
+      let vanilla = new Vanilla(version);
+      url = await vanilla.getServerUrl();
+    } else if (flavor == 'spigot') {
+      // spigot stuff
+    } else if (flavor == 'papermc') {
+      // papermc stuff
+    } else {
+      // throw error "invalid or unsupported flavor"
+    }
+
     // REPLACE VARIABLES
     // TODO: Update password to be not password :P
-    const url = await getServerUrl(version);
     script = script.replace('<<<PASSWORD>>>', 'password');
     script = script.replace('<<<URL>>>', url);
+
     // RETURN SCRIPT
     return script;
   }
