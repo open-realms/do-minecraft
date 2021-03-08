@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { MinecraftFlavor } from 'src/services/abstract/minecraft-flavor';
 
 export class Vanilla extends MinecraftFlavor {
   static MANIFEST: string =

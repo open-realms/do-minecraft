@@ -1,4 +1,4 @@
-abstract class MinecraftFlavor {
+export abstract class MinecraftFlavor {
   version: string;
 
   constructor(version: string) {

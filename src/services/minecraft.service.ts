@@ -10,6 +10,7 @@ import { InvalidFlavor } from './exceptions/invalid-flavor';
 import Axios from 'axios';
 
 import { Vanilla } from './utils/vanilla';
+import { MinecraftFlavor } from './abstract/minecraft-flavor';
 
 const asyncReadFile = promisify(readFile);
 
