@@ -113,20 +113,16 @@ export class MinecraftService {
   }
 
   private async getScript(flavor: string, version: string): Promise<string> {
-    // GET HEAD, FLAVOR, AND TAIL PATHS
-    const headPath = resolve(__dirname, `../scripts/head.sh`);
-    const tailPath = resolve(__dirname, `../scripts/tail.sh`);
-    const flavorPath = resolve(__dirname, `../scripts/vanilla.sh`);
-    // READ SCRIPT FILES
-    let headScript = await asyncReadFile(headPath, 'utf8');
-    const tailScript = await asyncReadFile(tailPath, 'utf8');
-    let flavorScript = await asyncReadFile(flavorPath, 'utf8');
+    // GET SCRIPT PATH
+    const scriptPath = resolve(__dirname, `../scripts/setup.sh`);
+    // READ SCRIPT FILE
+    let script = await asyncReadFile(scriptPath, 'utf8');
     // REPLACE VARIABLES
     // TODO: Update password to be not password :P
     const url = await getServerUrl(version);
-    headScript = headScript.replace('<<<PASSWORD>>>', 'password');
-    flavorScript = flavorScript.replace('<<<URL>>>', url);
-    // RETURN FULL SCRIPT
-    return headScript + flavorScript + tailScript;
+    script = script.replace('<<<PASSWORD>>>', 'password');
+    script = script.replace('<<<URL>>>', url);
+    // RETURN SCRIPT
+    return script;
   }
 }
