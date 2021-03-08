@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 export class Vanilla extends MinecraftFlavor {
-  MANIFEST: string =
+  static MANIFEST: string =
     'https://launchermeta.mojang.com/mc/game/version_manifest.json';
 
   constructor(version: string) {
@@ -9,7 +9,7 @@ export class Vanilla extends MinecraftFlavor {
   }
 
   async getServerUrl(): Promise<string> {
-    const manifestResponse = await Axios.get(this.MANIFEST);
+    const manifestResponse = await Axios.get(Vanilla.MANIFEST);
     const versions = manifestResponse.data.versions;
     let url = '';
     for (let version of versions) {
