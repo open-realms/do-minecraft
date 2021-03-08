@@ -9,15 +9,15 @@ export class Vanilla extends MinecraftFlavor {
   }
 
   async getServerUrl(): Promise<string> {
-    const response = await Axios.get(this.MANIFEST);
-    const versions = response.data.versions;
+    const manifestResponse = await Axios.get(this.MANIFEST);
+    const versions = manifestResponse.data.versions;
     let url = '';
     for (let version of versions) {
       if (version.id == this.version) url = version.url;
       break;
     }
 
-    const otherResponse = await Axios.get(url);
-    return otherResponse.data.downloads.server.url;
+    const versionResponse = await Axios.get(url);
+    return versionResponse.data.downloads.server.url;
   }
 }
