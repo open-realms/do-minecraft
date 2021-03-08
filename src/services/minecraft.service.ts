@@ -6,6 +6,7 @@ import { promisify } from 'util';
 import { MinecraftServerConfig } from './interfaces/minecraft-server-config';
 import { env } from '../config';
 import { ResourceNotFound } from './exceptions/resource-not-found';
+import { InvalidFlavor } from './exceptions/invalid-flavor';
 import Axios from 'axios';
 
 import { Vanilla } from './utils/vanilla';
@@ -122,18 +123,16 @@ export class MinecraftService {
     // READ SCRIPT FILE
     let script = await asyncReadFile(scriptPath, 'utf8');
 
-    // FETCH URL BASED ON FLAVOR
+    // FETCH URL BASED ON FLAVOR - WILL ADD NEW FLAVORS AS WE SUPPORT THEM
     let minecraftFlavor: MinecraftFlavor;
-    if (flavor == 'vanilla') {
-      flavor = new Vanilla(version);
-    } else if (flavor == 'spigot') {
-      // spigot stuff
-    } else if (flavor == 'papermc') {
-      // papermc stuff
-    } else {
-      // throw error "invalid or unsupported flavor"
+    switch (flavor) {
+      case 'vanilla':
+        minecraftFlavor = new Vanilla(version);
+        break;
+      default:
+        throw new InvalidFlavor('invalid or unsupported flavor');
     }
-    const url = await flavor.getServerUrl();
+    const url = await minecraftFlavor.getServerUrl();
 
     // REPLACE VARIABLES
     // TODO: Update password to be not password :P
