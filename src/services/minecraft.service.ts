@@ -123,7 +123,7 @@ export class MinecraftService {
     let script = await asyncReadFile(scriptPath, 'utf8');
 
     // FETCH URL BASED ON FLAVOR
-    let flavor: MinecraftFlavor;
+    let minecraftFlavor: MinecraftFlavor;
     if (flavor == 'vanilla') {
       flavor = new Vanilla(version);
     } else if (flavor == 'spigot') {
