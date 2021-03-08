@@ -123,10 +123,9 @@ export class MinecraftService {
     let script = await asyncReadFile(scriptPath, 'utf8');
 
     // FETCH URL BASED ON FLAVOR
-    let url = '';
+    let flavor: MinecraftFlavor;
     if (flavor == 'vanilla') {
-      let vanilla = new Vanilla(version);
-      url = await vanilla.getServerUrl();
+      flavor = new Vanilla(version);
     } else if (flavor == 'spigot') {
       // spigot stuff
     } else if (flavor == 'papermc') {
@@ -134,6 +133,7 @@ export class MinecraftService {
     } else {
       // throw error "invalid or unsupported flavor"
     }
+    const url = await flavor.getServerUrl();
 
     // REPLACE VARIABLES
     // TODO: Update password to be not password :P
