@@ -8,6 +8,8 @@ import { env } from '../config';
 import { ResourceNotFound } from './exceptions/resource-not-found';
 import Axios from 'axios';
 
+import { getServerUrl } from './utils/vanilla'
+
 const asyncReadFile = promisify(readFile);
 
 export class MinecraftService {
@@ -114,15 +116,16 @@ export class MinecraftService {
     // GET HEAD, FLAVOR, AND TAIL PATHS
     const headPath = resolve(__dirname, `../scripts/head.sh`);
     const tailPath = resolve(__dirname, `../scripts/tail.sh`);
-    const flavorPath = resolve(__dirname, `../scripts/${flavor}.sh`);
+    const flavorPath = resolve(__dirname, `../scripts/vanilla.sh`);
     // READ SCRIPT FILES
     let headScript = await asyncReadFile(headPath, 'utf8');
     const tailScript = await asyncReadFile(tailPath, 'utf8');
     let flavorScript = await asyncReadFile(flavorPath, 'utf8');
     // REPLACE VARIABLES
     // TODO: Update password to be not password :P
+    const url = await getServerUrl(version);
     headScript = headScript.replace('<<<PASSWORD>>>', 'password');
-    flavorScript = flavorScript.replace('<<<VERSION>>>', version);
+    flavorScript = flavorScript.replace('<<<URL>>>', url);
     // RETURN FULL SCRIPT
     return headScript + flavorScript + tailScript;
   }

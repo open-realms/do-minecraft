@@ -1,16 +1,4 @@
-VANILLA_VERSION="<<<VERSION>>>"
-
-MANIFEST="https://launchermeta.mojang.com/mc/game/version_manifest.json"
-URL=$(python3 -c "
-from json import load
-from urllib.request import urlopen
-from sys import stdout
-manifest=load(urlopen('$MANIFEST'))
-version='$VANILLA_VERSION'
-if '$VANILLA_VERSION'=='latest': version=manifest['latest']['release']
-url=[index['url'] for index in manifest['versions'] if index['id']==version][0]
-stdout.write(str(load(urlopen(url))['downloads']['server']['url']))
-")
+URL="<<<URL>>>"
 
 rm -rf /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar
 curl -f $URL -o /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar
