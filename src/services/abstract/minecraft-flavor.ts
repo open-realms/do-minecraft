@@ -1,9 +1,9 @@
 export abstract class MinecraftFlavor {
-  version: string;
+  protected version: string;
 
   constructor(version: string) {
     this.version = version;
   }
 
-  abstract getServerUrl(): Promise<string>;
+  public abstract getServerUrl(): Promise<string>;
 }

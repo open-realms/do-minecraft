@@ -77,8 +77,8 @@ export class MinecraftService {
 
   public async getMinecraftServerStatus(id: number): Promise<string> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/status`;
-    const response = await Axios.get(full_address);
+    const fullAddress = `${ip}:3000/status`;
+    const response = await Axios.get(fullAddress);
     return response.data.status;
   }
 
@@ -87,28 +87,28 @@ export class MinecraftService {
     command: string
   ): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/command`;
-    Axios.post(full_address, {
-      command: command
+    const fullAddress = `${ip}:3000/command`;
+    Axios.post(fullAddress, {
+      command
     });
   }
 
   public async startMinecraftRemotely(id: number): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/start`;
-    Axios.post(full_address);
+    const fullAddress = `${ip}:3000/start`;
+    Axios.post(fullAddress);
   }
 
   public async stopMinecraftRemotely(id: number): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/shutdown`;
-    Axios.delete(full_address);
+    const fullAddress = `${ip}:3000/shutdown`;
+    Axios.delete(fullAddress);
   }
 
   public async restartMinecraftRemotely(id: number): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/restart`;
-    Axios.post(full_address);
+    const fullAddress = `${ip}:3000/restart`;
+    Axios.post(fullAddress);
   }
 
   private async getDropletIP(id: number): Promise<string> {

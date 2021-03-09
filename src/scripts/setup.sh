@@ -33,12 +33,8 @@ mkdir /home/mcuser/express-minecraft/minecraft
 npm install
 
 # Fetch server.jar and configure it
-URL="<<<URL>>>"
 rm -rf /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar
-# wget -O /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar "$URL"
-# curl -f $URL -o /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar
-echo $URL >> log.txt
-curl -o /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar $URL
+curl -o /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar <<<URL>>>
 echo "eula=true" > /home/mcuser/express-minecraft/minecraft/eula.txt
 echo "enable-query=true" > /home/mcuser/express-minecraft/minecraft/server.properties
 
