@@ -6,7 +6,11 @@ import { promisify } from 'util';
 import { MinecraftServerConfig } from './interfaces/minecraft-server-config';
 import { env } from '../config';
 import { ResourceNotFound } from './exceptions/resource-not-found';
+import { InvalidFlavor } from './exceptions/invalid-flavor';
 import Axios from 'axios';
+
+import { Vanilla } from './utils/vanilla';
+import { MinecraftFlavor } from './abstract/minecraft-flavor';
 
 const asyncReadFile = promisify(readFile);
 
@@ -73,35 +77,38 @@ export class MinecraftService {
 
   public async getMinecraftServerStatus(id: number): Promise<string> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/status`;
-    const response = await Axios.get(full_address);
+    const fullAddress = `${ip}:3000/status`;
+    const response = await Axios.get(fullAddress);
     return response.data.status;
   }
 
-  public async sendMinecraftCommand(id: number, command: string): Promise<void> {
+  public async sendMinecraftCommand(
+    id: number,
+    command: string
+  ): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/command`;
-    Axios.post(full_address, {
-      command: command
+    const fullAddress = `${ip}:3000/command`;
+    Axios.post(fullAddress, {
+      command
     });
   }
 
   public async startMinecraftRemotely(id: number): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/start`;
-    Axios.post(full_address);
+    const fullAddress = `${ip}:3000/start`;
+    Axios.post(fullAddress);
   }
 
   public async stopMinecraftRemotely(id: number): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/shutdown`;
-    Axios.delete(full_address);
+    const fullAddress = `${ip}:3000/shutdown`;
+    Axios.delete(fullAddress);
   }
 
   public async restartMinecraftRemotely(id: number): Promise<void> {
     const ip = await this.getDropletIP(id);
-    const full_address = `${ip}:3000/restart`;
-    Axios.post(full_address);
+    const fullAddress = `${ip}:3000/restart`;
+    Axios.post(fullAddress);
   }
 
   private async getDropletIP(id: number): Promise<string> {
@@ -111,19 +118,29 @@ export class MinecraftService {
   }
 
   private async getScript(flavor: string, version: string): Promise<string> {
-    // GET HEAD, FLAVOR, AND TAIL PATHS
-    const headPath = resolve(__dirname, `../scripts/head.sh`);
-    const tailPath = resolve(__dirname, `../scripts/tail.sh`);
-    const flavorPath = resolve(__dirname, `../scripts/${flavor}.sh`);
-    // READ SCRIPT FILES
-    let headScript = await asyncReadFile(headPath, 'utf8');
-    const tailScript = await asyncReadFile(tailPath, 'utf8');
-    let flavorScript = await asyncReadFile(flavorPath, 'utf8');
+    // GET SCRIPT PATH
+    const scriptPath = resolve(__dirname, `../scripts/setup.sh`);
+
+    // READ SCRIPT FILE
+    let script = await asyncReadFile(scriptPath, 'utf8');
+
+    // FETCH URL BASED ON FLAVOR - WILL ADD NEW FLAVORS AS WE SUPPORT THEM
+    let minecraftFlavor: MinecraftFlavor;
+    switch (flavor) {
+      case 'vanilla':
+        minecraftFlavor = new Vanilla(version);
+        break;
+      default:
+        throw new InvalidFlavor('invalid or unsupported flavor');
+    }
+    const url = await minecraftFlavor.getServerUrl();
+
     // REPLACE VARIABLES
     // TODO: Update password to be not password :P
-    headScript = headScript.replace('<<<PASSWORD>>>', 'password');
-    flavorScript = flavorScript.replace('<<<VERSION>>>', version);
-    // RETURN FULL SCRIPT
-    return headScript + flavorScript + tailScript;
+    script = script.replace('<<<PASSWORD>>>', 'password');
+    script = script.replace('<<<URL>>>', url);
+
+    // RETURN SCRIPT
+    return script;
   }
 }

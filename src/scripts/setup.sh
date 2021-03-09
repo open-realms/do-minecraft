@@ -31,3 +31,17 @@ git clone https://github.com/open-realms/express-minecraft.git /home/mcuser/expr
 cd /home/mcuser/express-minecraft
 mkdir /home/mcuser/express-minecraft/minecraft
 npm install
+
+# Fetch server.jar and configure it
+rm -rf /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar
+curl -o /home/mcuser/express-minecraft/minecraft/minecraft_server-run.jar <<<URL>>>
+echo "eula=true" > /home/mcuser/express-minecraft/minecraft/eula.txt
+echo "enable-query=true" > /home/mcuser/express-minecraft/minecraft/server.properties
+
+# Final section of the user_data script after everything is installed and ready
+# Start express server as a service
+pm2 start /home/mcuser/express-minecraft/minecraft.js
+pm2 startup
+pm2 save
+
+EOF
