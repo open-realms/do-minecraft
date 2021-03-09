@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { MinecraftFlavor } from 'src/services/abstract/minecraft-flavor';
+import { MinecraftFlavor } from '../abstract/minecraft-flavor';
 
 export class Vanilla extends MinecraftFlavor {
   static MANIFEST: string =
@@ -13,10 +13,11 @@ export class Vanilla extends MinecraftFlavor {
     const manifestResponse = await Axios.get(Vanilla.MANIFEST);
     const versions = manifestResponse.data.versions;
     let url = '';
-    for (let version of versions) {
-      if (version.id == this.version) url = version.url;
-      break;
-    }
+    versions.forEach((version: { id: string; url: string }) => {
+      if (version.id == this.version) {
+        url = version.url;
+      }
+    });
 
     const versionResponse = await Axios.get(url);
     return versionResponse.data.downloads.server.url;

@@ -4,7 +4,7 @@ const { MinecraftService } = require('./dist');
 const service = new MinecraftService();
 
 // hardcode the correct id here when testing the various methods below
-// const id = 214710939;
+// const id = 235757667;
 
 // hardcode whatever command here when testing the command endpoint
 // const command = 'sample command';
