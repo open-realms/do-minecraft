@@ -10,7 +10,7 @@ apt update -y
 apt install git nodejs openjdk-11-jre-headless -y
 apt install npm -y
 
-sudo -u mcuser -i
+sudo -u mcuser -i << EOF
 
 # Change npm global path
 mkdir ~/.npm-global
