@@ -4,7 +4,7 @@ const { MinecraftService } = require('./dist');
 const service = new MinecraftService();
 
 // hardcode the correct id here when testing the various methods below
-// const id = 235757667;
+const id = 235784194;
 
 // hardcode whatever command here when testing the command endpoint
 // const command = 'sample command';
@@ -12,22 +12,22 @@ const service = new MinecraftService();
 // phony id to use to test error handling of the various methods below
 // const idOfDropletThatDoesNotExist = 2;
 
-const options = {
-  name: 'minecraft-server',
-  version: '1.16.1',
-  size: 's-1vcpu-1gb',
-  region: 'nyc3',
-  flavor: 'vanilla'
-};
+// const options = {
+//   name: 'minecraft-server',
+//   version: '1.16.1',
+//   size: 's-1vcpu-1gb',
+//   region: 'nyc3',
+//   flavor: 'vanilla'
+// };
 
-service
-  .createMinecraftDroplet(options)
-  .then(droplet => {
-    console.log(JSON.stringify(droplet));
-  })
-  .catch(err => {
-    console.log(JSON.stringify(err));
-  });
+// service
+//   .createMinecraftDroplet(options)
+//   .then(droplet => {
+//     console.log(JSON.stringify(droplet));
+//   })
+//   .catch(err => {
+//     console.log(JSON.stringify(err));
+//   });
 
 // service.stopMinecraftDroplet(id).catch(err => {
 //   console.log(err);
@@ -37,9 +37,9 @@ service
 //   console.log(err);
 // });
 
-// service.killMinecraftDroplet(id).catch(err => {
-//   console.log(JSON.stringify(err));
-// });
+service.killMinecraftDroplet(id).catch(err => {
+  console.log(JSON.stringify(err));
+});
 
 // service.startMinecraftRemotely(id).catch(err => {
 //   console.log(JSON.stringify(err));
