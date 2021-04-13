@@ -2,20 +2,17 @@
 
 A library used to create and manage minecraft servers on DigitalOcean droplets.
 
-This is a work in progress.
+**NOTE:** This is a work in progress.
 
-## Todo
+### Usage
 
-**Functionality**
+Install do-minecraft by running the following:
 
-- [x] Create Droplet with Minecraft
-  - [x] IF NEW: Minecraft build script included
-  - [ ] IF EXISTING: Use existing snapshot to spin up server
-  - [ ] Include optionally provided ssh key for easy server access
-- [ ] Check droplet status
-- [x] Start Minecraft remotely
-- [x] Stop Minecraft remotely
-- [x] Start droplet
-- [x] Shut down droplet (after stopping minecraft)
-- [ ] Take snapshot of droplet
-- [x] Destroy droplet
+```shell
+# If you use yarn
+$ yarn add @open-realms/do-minecraft
+# If you use npm
+$ npm install --save @open-realms/do-minecraft
+```
+
+Documentation on actual usage coming soon.
