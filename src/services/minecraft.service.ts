@@ -4,7 +4,6 @@ import { resolve } from 'path';
 import { promisify } from 'util';
 
 import { MinecraftServerConfig } from './interfaces/minecraft-server-config';
-import { env } from '../config';
 import { ResourceNotFound } from './exceptions/resource-not-found';
 import { InvalidFlavor } from './exceptions/invalid-flavor';
 import Axios from 'axios';
@@ -17,8 +16,8 @@ const asyncReadFile = promisify(readFile);
 export class MinecraftService {
   private client: DigitalOcean;
 
-  constructor() {
-    this.client = new DigitalOcean(env.apiKey);
+  constructor(apiKey: string) {
+    this.client = new DigitalOcean(apiKey);
   }
 
   public async createMinecraftDroplet(

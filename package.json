@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "digitalocean-js": "^1.5.7",
-    "dotenv": "^8.2.0"
+    "digitalocean-js": "^1.5.7"
   }
 }
